@@ -1,0 +1,145 @@
+#feature-panel {
+  @include media-breakpoint-down(md){
+    margin-bottom: 35px;
+  }
+
+  @include media-breakpoint-down(xs){
+    padding: 0 20px
+  }
+
+  #backdrop{
+    background: url("../assets/backdrop.png") no-repeat 56.18vw top;
+    position: absolute;
+    z-index: -99;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    top: 0;
+
+    @media (max-width: 1400px){
+      background: url("../assets/backdrop.png") top right -150px no-repeat;
+    }
+
+    @include media-breakpoint-down(lg){
+      background-position: top right -22vw;
+    }
+
+    @include media-breakpoint-down(md){
+      background-position: 100% -2.5%;
+      background-size: 156px;
+    }
+
+    @include media-breakpoint-down(xs){
+      background-size: 125px;
+    }
+  }
+
+  h4 {
+    font-family: $font-heading;
+    font-size: 70px;
+    font-weight: normal;
+    color: $color-text-heading;
+    margin-bottom: 30px;
+
+    strong {
+      color: $color-primary;
+      font-family: $font-heading;
+      font-weight: 700;
+    }
+
+    @include media-breakpoint-down(lg){
+      font-size: 58px;
+    }
+
+    @include media-breakpoint-down(xs){
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+  }
+
+  p {
+    font-family: $font-body;
+    font-weight: 300;
+    font-size: 36px;
+    color: $color-text-body;
+    margin-bottom: 60px;
+
+    > strong {
+      font-weight: 700;
+    }
+
+    @include media-breakpoint-down(lg){
+      font-size: 28px;
+    }
+
+    @include media-breakpoint-down(xs){
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+  }
+
+  .info{
+    @include media-breakpoint-down(md){
+      text-align: center;
+    }
+  }
+
+  .action{
+    .btn{
+      display: inline-block;
+    }
+
+    .social{
+      margin-left: 15px;
+      display: inline-block;
+    }
+  }
+
+  .laptop-wrapper{
+    text-align: right;
+
+    .laptop{
+      text-align: right;
+      display: inline-block;
+
+      img{
+        animation: float 1s infinite alternate ease-in-out 1s, fadeInRight 1s;
+        display: inline-block;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    @include media-breakpoint-down(md){
+      text-align: center;
+      background: url("../assets/laptop-backdrop.png") center center no-repeat;
+      background-size: contain;
+      height: 256px;
+      position: relative;
+      margin: 0 auto;
+      margin-bottom: 40px;
+
+      .laptop{
+        width: 210px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        z-index: 2;
+      }
+    }
+
+    @include media-breakpoint-down(xs){
+      margin-top: 50px;
+      height: 200px;
+      margin-bottom: 20px;
+
+      .laptop{
+        width: 175px;
+      }
+    }
+  }
+}
