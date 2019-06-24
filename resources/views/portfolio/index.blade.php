@@ -44,14 +44,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="img-wrap col-sm-6 col-md-4">
-                        <div class="image" style="background-image: url('https://cdn.dribbble.com/users/1515625/screenshots/6626350/flight_booking_2x_2x.png')">
-                            <div class="text">
-                                <h3>Flight Booking</h3>
-                                <span>ui/ux design, branding</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
