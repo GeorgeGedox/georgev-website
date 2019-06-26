@@ -13,6 +13,7 @@
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             @include('dashboard.partials.user')
+
         </ul>
 
         <!-- Collapse -->
