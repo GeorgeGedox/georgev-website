@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.app')
+@extends('dashboard.layouts.app', ['title' => __('Home')])
 
 @section('content')
     {{--@include('dashboard.layouts.headers.cards')--}}

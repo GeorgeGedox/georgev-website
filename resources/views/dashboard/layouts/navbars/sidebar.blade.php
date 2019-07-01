@@ -37,17 +37,17 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard.index') }}">
+                    <a class="nav-link {{ Route::currentRouteName() == 'dashboard.index' ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
                         <i class="fas fa-home text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'dashboard.blog.') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('dashboard.index') }}">
                         <i class="fas fa-pen-nib text-info"></i> {{ __('Blog') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard.index') }}">
+                <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'dashboard.portfolio.') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('dashboard.portfolio.index') }}">
                         <i class="fas fa-camera text-orange"></i> {{ __('Portfolio') }}
                     </a>
                 </li>

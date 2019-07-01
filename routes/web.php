@@ -18,5 +18,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     app()->make('router')->resetPassword(); // Adds reset password routes
 
     // Routes
-    Route::get('', 'Dashboard\HomeController@index')->name('index');
+    Route::middleware('auth')->group(function (){
+        Route::get('', 'Dashboard\HomeController@index')->name('index');
+
+        Route::resource('portfolio', 'Dashboard\PortfolioController')->parameters(['portfolio' => 'project']);;
+    });
 });
