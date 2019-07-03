@@ -1942,14 +1942,20 @@ function mobileTrigger() {
 
 function portfolioHandler() {
   var $image = $('.gallery .image');
-  var $viewer = $('.work-viewer');
+  var viewer = '.work-viewer';
+  var $currentViewer = null;
   $image.click(function () {
-    $('body').css('overflow', 'hidden');
-    $viewer.toggleClass('is-open');
+    var handlerID = $(this).data('id');
+    $currentViewer = $(viewer + '[data-id=' + handlerID + ']');
+
+    if ($currentViewer.length) {
+      $('body').css('overflow', 'hidden');
+      $currentViewer.toggleClass('is-open');
+    }
   });
-  $viewer.find('button.view-close').click(function () {
+  $(viewer).find('button.view-close').click(function () {
     $('body').css('overflow', 'inherit');
-    $viewer.removeClass('is-open');
+    $currentViewer.removeClass('is-open');
   });
 }
 

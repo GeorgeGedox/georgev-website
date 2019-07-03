@@ -17,17 +17,24 @@ function mobileTrigger() {
 
 function portfolioHandler() {
     const $image = $('.gallery .image')
-    const $viewer = $('.work-viewer')
+    const viewer = '.work-viewer'
+    let $currentViewer = null;
 
 
     $image.click(function () {
-        $('body').css('overflow', 'hidden')
-        $viewer.toggleClass('is-open')
+        let handlerID = $(this).data('id')
+
+        $currentViewer = $(viewer + '[data-id='+ handlerID +']')
+
+        if ($currentViewer.length){
+            $('body').css('overflow', 'hidden')
+            $currentViewer.toggleClass('is-open')
+        }
     })
 
-    $viewer.find('button.view-close').click(function () {
+    $(viewer).find('button.view-close').click(function () {
         $('body').css('overflow', 'inherit')
-        $viewer.removeClass('is-open')
+        $currentViewer.removeClass('is-open')
     })
 }
 

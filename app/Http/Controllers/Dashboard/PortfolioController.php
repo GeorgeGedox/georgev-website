@@ -42,7 +42,8 @@ class PortfolioController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'tags' => 'required|string|max:250',
-            'description' => 'required',
+            'class' => 'string|nullable|max:200',
+            'description' => 'required|string',
             'image' => 'required|image'
         ]);
 
@@ -77,7 +78,7 @@ class PortfolioController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('dashboard.portfolio.edit', compact('project'));
     }
 
     /**
@@ -89,7 +90,27 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:250',
+            'tags' => 'required|string|max:250',
+            'class' => 'string|nullable|max:200',
+            'description' => 'required|string',
+            'image' => 'image'
+        ]);
+
+        $project->update($request->all());
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()){
+            $project->clearMediaCollection();
+            $project->addMediaFromRequest('image')
+                ->usingName($request->input('name'))
+                ->sanitizingFileName(function($fileName) {
+                    return strtolower(str_replace(['#', '/', '\\', ' '], '-', $fileName));
+                })
+                ->toMediaCollection();
+        }
+
+        return redirect()->route('dashboard.portfolio.index')->with('status', 'Project successfully created!');
     }
 
     /**

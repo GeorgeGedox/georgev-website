@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('tags');
+            $table->string('class')->nullable();
             $table->longText('description');
             $table->timestamps();
         });
