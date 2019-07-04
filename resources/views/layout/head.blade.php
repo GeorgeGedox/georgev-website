@@ -6,7 +6,7 @@
     <title>{{ config('app.name') }} | @yield('title', 'Web design & development')</title>
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" crossorigin="anonymous">
 
+    {{-- Fix blank screen flicker --}}
     <style>html{display: none;touch-action: manipulation}</style>
 </head>

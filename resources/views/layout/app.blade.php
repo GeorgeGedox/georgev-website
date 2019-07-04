@@ -44,7 +44,7 @@
 </main>
 
 <footer>
-    <p>&copy; {{ date('Y') }} georgev.design</p>
+    <p>&copy; {{ now()->year }} georgev.design</p>
 </footer>
 
 <script src="{{ mix('js/app.js') }}"></script>
