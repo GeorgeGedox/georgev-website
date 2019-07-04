@@ -1,4 +1,4 @@
-image: prooph/composer:7.2
+image: php:7.2-alpine3.9
 
 stages:
 - deploy
