@@ -13,7 +13,7 @@ set('deploy_server', null);
 
 // Hosts
 host('Production Server')
-    ->hostname('{{ deploy_server }}')
+    ->hostname(getenv('hostname'))
     ->user('deployer')
     ->port(22)
     ->forwardAgent(true)
