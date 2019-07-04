@@ -1,4 +1,4 @@
-image: php:7.2-alpine3.9
+image: php:7.2-apache
 
 stages:
 - deploy
@@ -15,7 +15,7 @@ before_script:
 deploy_production:
   stage: deploy
   script:
-  - 'which ssh-agent || ( apk update -y && apk add openssh-client -y )'
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRODUCTION_KEY")
   - php deployer.phar deploy production -o deploy_server="$SSH_SERVER_IP" -vvv
