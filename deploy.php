@@ -12,18 +12,9 @@ set('allow_anonymous_stats', false);
 set('deploy_server', null);
 
 // Hosts
-host('Production Server')
-    ->hostname(getenv('hostname'))
-    ->user('deployer')
-    ->port(22)
-    ->forwardAgent(true)
-    ->addSshOption('UserKnownHostsFile', '/dev/null')
-    ->addSshOption('StrictHostKeyChecking', 'no')
-    ->stage('production')
-    ->roles('app')
-    ->set('deploy_path', '/var/www/georgev.design')
-    ->set('branch', 'master')
-    ->set('http_user', 'www-data');
+inventory('hosts.yml');
+host('georgev.design')
+    ->stage('production');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
