@@ -1,0 +1,27 @@
+image: prooph/composer:7.2
+
+stages:
+- deploy
+
+cache:
+  paths:
+  - vendor
+
+before_script:
+# Download deployer
+- curl -LO https://deployer.org/deployer.phar
+- chmod +x deployer.phar
+
+deploy_production:
+  stage: deploy
+  script:
+  - 'which ssh-agent || ( apk update -y && apk add openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRODUCTION_KEY")
+  - php deployer.phar deploy production -o deploy_server="$SSH_SERVER_IP" -vvv
+  environment:
+    name: production
+    url: "https://georgev.design"
+  only:
+    - master
+    - merge_requests
