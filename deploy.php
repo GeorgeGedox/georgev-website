@@ -10,10 +10,11 @@ set('git_tty', false);
 set('allow_anonymous_stats', false);
 
 set('deploy_server', null);
+$serverHost = "{{ deploy_server }}";
 
 // Hosts
 host('Production Server')
-    ->hostname('{{ deploy_server }}')
+    ->hostname($serverHost)
     ->user('deployer')
     ->port(22)
     ->forwardAgent(true)
