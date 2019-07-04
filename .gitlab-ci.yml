@@ -18,7 +18,9 @@ deploy_production:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRODUCTION_KEY")
-  - echo "$DEPLOY_CONFIG" > "$(pwd)/hosts.yml"
+  - echo "$DEPLOY_CONFIG" > hosts.yml
+  - pwd
+  - cat hosts.yml
   - php deployer.phar deploy production -vvv
   environment:
     name: production
