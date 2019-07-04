@@ -19,8 +19,6 @@ deploy_production:
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRODUCTION_KEY")
   - echo "$DEPLOY_CONFIG" > hosts.yml
-  - pwd
-  - cat hosts.yml
   - php deployer.phar deploy production -vvv
   environment:
     name: production
