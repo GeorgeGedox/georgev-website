@@ -37,7 +37,7 @@
                     <p><small>{{ $project->tags }}</small></p>
                     <p>{{ $project->description }}</p>
                     <div class="action">
-                        <a href="{{ $project->getFirstMediaUrl() }}" target="_blank" title="{{ __('View full image') }}"><i class="fas fa-image"></i></a>
+                        <a href="{{ $project->getFirstMediaUrl() }}" target="_blank" title="{{ __('View full image') }}"><i class="far fa-image"></i></a>
                         <button class="btn btn-primary btn-no-shadow view-close" type="button">Go back</button>
                     </div>
                 </div>
