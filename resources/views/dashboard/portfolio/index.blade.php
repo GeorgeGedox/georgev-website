@@ -97,6 +97,8 @@
                 </div>
             </div>
         </div>
+
+        @include('dashboard.layouts.footers.auth')
     </div>
 @endsection
 
