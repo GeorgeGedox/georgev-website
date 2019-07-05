@@ -28,6 +28,13 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::patch('/profile/password', 'Dashboard\ProfileController@passwordUpdate')->name('profile.password');
 
         // Portfolio
-        Route::resource('portfolio', 'Dashboard\PortfolioController')->parameters(['portfolio' => 'project']);;
+        Route::resource('portfolio', 'Dashboard\PortfolioController')->parameters(['portfolio' => 'project']);
+
+        // Settings
+        Route::prefix('settings')->name('settings.')->group(function (){
+            // General
+            Route::get('/general', 'Dashboard\Settings\GeneralController@index')->name('general.index');
+            Route::post('/general/maintenance', 'Dashboard\Settings\GeneralController@maintenance')->name('general.maintenance');
+        });
     });
 });
