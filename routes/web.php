@@ -15,12 +15,19 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-    app()->make('router')->resetPassword(); // Adds reset password routes
+    Route::resetPassword(); // Adds reset password routes
 
     // Routes
     Route::middleware('auth')->group(function (){
+        // Home
         Route::get('', 'Dashboard\HomeController@index')->name('index');
 
+        // Profile
+        Route::get('/profile', 'Dashboard\ProfileController@edit')->name('profile.edit');
+        Route::patch('/profile', 'Dashboard\ProfileController@update')->name('profile.update');
+        Route::patch('/profile/password', 'Dashboard\ProfileController@passwordUpdate')->name('profile.password');
+
+        // Portfolio
         Route::resource('portfolio', 'Dashboard\PortfolioController')->parameters(['portfolio' => 'project']);;
     });
 });
