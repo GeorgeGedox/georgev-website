@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.app', ['title' => __('User Profile')])
+@extends('dashboard.layouts.app', ['title' => __('General settings')])
 
 @section('content')
     @include('dashboard.partials.page.header', [

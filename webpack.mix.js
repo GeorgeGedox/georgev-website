@@ -15,6 +15,10 @@ mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/dashboard', 'public/argon')
     .sass('resources/sass/app.scss', 'public/css');
 
+if (mix.inProduction()) {
+    mix.version();
+}
+
 // Full API
 // mix.js(src, output);
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.

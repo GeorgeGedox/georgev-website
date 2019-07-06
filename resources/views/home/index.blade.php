@@ -13,7 +13,7 @@
                         </p>
 
                         <div class="action anim-slideInUp anim-delay-2">
-                            <a href="#" class="btn btn-primary btn-big">Portfolio</a>
+                            <a href="{{ route('portfolio') }}" class="btn btn-primary btn-big">Portfolio</a>
                             @include('layout.social')
                         </div>
                     </div>
