@@ -8,6 +8,13 @@
 
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
+            @if(app()->isDownForMaintenance())
+                <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ route('dashboard.settings.general.index') }}">
+                        <span class="badge badge-pill badge-primary">{{ __("Maintenance mode") }}</span>
+                    </a>
+                </li>
+            @endif
             @include('dashboard.partials.user')
         </ul>
     </div>

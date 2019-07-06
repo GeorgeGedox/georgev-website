@@ -26,7 +26,8 @@
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false"
+                                aria-label="Toggle sidenav">
                             <span></span>
                             <span></span>
                         </button>
@@ -41,26 +42,27 @@
                         <i class="fas fa-home text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
-                <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'dashboard.blog.') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('dashboard.index') }}">
+                <li class="nav-item">
+                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.blog.') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
                         <i class="fas fa-pen-nib text-info"></i> {{ __('Blog') }}
                     </a>
                 </li>
-                <li class="nav-item {{ Str::startsWith(Route::currentRouteName(), 'dashboard.portfolio.') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('dashboard.portfolio.index') }}">
+                <li class="nav-item">
+                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.portfolio.') ? 'active' : '' }}" href="{{ route('dashboard.portfolio.index') }}">
                         <i class="fas fa-camera text-orange"></i> {{ __('Portfolio') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#nav-settings" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.settings.') ? 'active' : '' }}" href="#nav-settings" data-toggle="collapse" role="button"
+                       aria-expanded="{{ Str::startsWith(Route::currentRouteName(), 'dashboard.settings.') ? 'true' : 'false' }}" aria-controls="navbar-settings">
                         <i class="fas fa-cogs text-pink"></i>
                         <span class="nav-link-text">{{ __('Settings') }}</span>
                     </a>
 
-                    <div class="collapse show" id="nav-settings">
+                    <div class="collapse {{ Str::startsWith(Route::currentRouteName(), 'dashboard.settings.') ? 'show' : '' }}" id="nav-settings">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                                <a class="nav-link {{ Route::currentRouteName() == 'dashboard.settings.general.index' ? 'active' : '' }}" href="{{ route('dashboard.settings.general.index') }}">
                                     {{ __('General') }}
                                 </a>
                             </li>

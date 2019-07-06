@@ -25,8 +25,8 @@
                                 <div class="col-md-8">
                                     <h6 class="heading-small text-muted mb-4">{{ __('Project data') }}</h6>
                                     <div class="pl-lg-3">
+                                        <label class="form-control-label">{{ __('Name') }}</label>
                                         <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label">{{ __('Name') }}</label>
                                             <input type="text" name="name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}"
                                                    value="{{ old('name') }}" required autofocus>
 
@@ -37,8 +37,8 @@
                                             @endif
                                         </div>
 
+                                        <label class="form-control-label">{{ __('Tags') }}</label>
                                         <div class="form-group{{ $errors->has('tags') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label">{{ __('Tags') }}</label>
                                             <input type="text" name="tags" class="form-control form-control-alternative{{ $errors->has('tags') ? ' is-invalid' : '' }}"
                                                    placeholder="{{ __('ex: design, development, ui/ux') }}" value="{{ old('tags') }}" required>
 
@@ -49,8 +49,8 @@
                                             @endif
                                         </div>
 
+                                        <label class="form-control-label">{{ __('Additional classes') }}</label>
                                         <div class="form-group{{ $errors->has('class') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label">{{ __('Additional classes') }}</label>
                                             <input type="text" name="class" class="form-control form-control-alternative{{ $errors->has('class') ? ' is-invalid' : '' }}"
                                                    placeholder="{{ __('ex: text-light') }}" value="{{ old('class') }}">
 
@@ -61,8 +61,8 @@
                                             @endif
                                         </div>
 
+                                        <label class="form-control-label">{{ __('Description') }}</label>
                                         <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label">{{ __('Description') }}</label>
                                             <textarea name="description" rows="10" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}"
                                                       placeholder="{{ __('Describe your project') }}" required>{{ old('description') }}</textarea>
 
@@ -77,8 +77,8 @@
                                 <div class="col-md-4">
                                     <h6 class="heading-small text-muted mb-4">{{ __('Project media') }}</h6>
                                     <div class="pl-lg-3">
+                                        <label class="form-control-label">{{ __('Project image') }}</label>
                                         <div class="form-group{{ $errors->has('image') ? ' has-danger' : '' }}">
-                                            <label class="form-control-label">{{ __('Project image') }}</label>
                                             <input type="file" name="image" style="display: block" required>
 
                                             @if ($errors->has('image'))
@@ -100,6 +100,8 @@
                 </div>
             </div>
         </div>
+
+        @include('dashboard.layouts.footers.auth')
     </div>
 @endsection
 

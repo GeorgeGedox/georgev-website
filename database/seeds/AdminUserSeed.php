@@ -16,6 +16,7 @@ class AdminUserSeed extends Seeder
         $admin->name = "Admin";
         $admin->email = "admin@georgev.design";
         $admin->password = Hash::make("admin");
+        $admin->admin = true;
         $admin->email_verified_at = now();
         $admin->save();
     }

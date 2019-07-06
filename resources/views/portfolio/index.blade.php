@@ -12,7 +12,7 @@
             </div>
             <div class="col-12">
                 <div class="gallery row">
-                    @foreach($projects as $project)
+                    @forelse($projects as $project)
                         <div class="img-wrap col-sm-6 col-md-4 {{ $project->class ?? '' }}">
                             <div class="image" data-id="{{ $project->id }}" style="background-image: url('{{ $project->getFirstMediaUrl() }}')">
                                 <div class="text">
@@ -21,7 +21,13 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="col-12">
+                            <div style="text-align: center">
+                                <h2>Nothing to show right now.</h2>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -37,7 +43,7 @@
                     <p><small>{{ $project->tags }}</small></p>
                     <p>{{ $project->description }}</p>
                     <div class="action">
-                        <a href="{{ $project->getFirstMediaUrl() }}" target="_blank" title="{{ __('View full image') }}"><i class="far fa-image"></i></a>
+                        <a href="{{ $project->getFirstMediaUrl() }}" target="_blank" title="{{ __('View full image') }}"><i class="fas fa-expand"></i></a>
                         <button class="btn btn-primary btn-no-shadow view-close" type="button">Go back</button>
                     </div>
                 </div>
