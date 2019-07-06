@@ -35,6 +35,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             // General
             Route::get('/general', 'Dashboard\Settings\GeneralController@index')->name('general.index');
             Route::post('/general/maintenance', 'Dashboard\Settings\GeneralController@maintenance')->name('general.maintenance');
+            Route::post('/general/seo', 'Dashboard\Settings\GeneralController@seo')->name('general.seo');
+            Route::post('/general/social', 'Dashboard\Settings\GeneralController@social')->name('general.social');
         });
     });
 });
