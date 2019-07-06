@@ -8,15 +8,11 @@
   }
 
   #backdrop{
-    background: url("../assets/backdrop.png") no-repeat 56.18vw top;
+    background: url("../assets/backdrop.png") no-repeat top right;
     position: absolute;
     z-index: -99;
     width: 100%;
     height: 100%;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
     top: 0;
 
     @media (max-width: 1400px){
