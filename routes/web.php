@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 Route::get('/portfolio', 'PortfolioController@index')->name('portfolio');
+Route::get('/contact', 'ContactController@index')->name('contact');
 
 Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('', 'BlogController@index')->name('index');
