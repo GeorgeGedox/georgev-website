@@ -1,0 +1,26 @@
+language: php
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - nightly
+
+branches:
+  only:
+  - master
+
+before_install:
+  - composer install --prefer-source --no-interaction --dev
+  - php artisan key:generate
+
+before_script:
+  - curl -LO https://deployer.org/deployer.phar
+  - chmod +x deployer.phar
+
+script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRODUCTION_KEY")
+  - echo "$DEPLOY_CONFIG" > hosts.yml
+  - php deployer.phar deploy production -vvv
