@@ -1,0 +1,9 @@
+@mixin anim-delay {
+  @for $i from 1 through 5 {
+    .anim-delay-#{$i}{
+      animation-delay: #{$i}s;
+    }
+  }
+}
+
+@include anim-delay;

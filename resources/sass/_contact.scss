@@ -1,0 +1,32 @@
+.contact-block{
+  margin-bottom: 35px;
+
+  .title{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #ccc;
+    margin-bottom: 15px;
+  }
+
+  h2{
+    font-weight: normal;
+  }
+
+  .social{
+    li{
+      a{
+        display: block;
+        padding: 15px;
+        font-size: 22px;
+        color: $color-text-heading;
+
+        &:hover{
+          transform: translateY(-5px);
+          color: $color-primary;
+          transition: $transition-time;
+        }
+      }
+    }
+  }
+}
