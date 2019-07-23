@@ -9,13 +9,13 @@ cache:
   - vendor
 
 before_script:
-- composer install
 - curl -LO https://deployer.org/deployer.phar
 - chmod +x deployer.phar
 
 test:
   stage: test
   script:
+  - composer install
   - chmod +x vendor/bin/phpunit
   - ./vendor/bin/phpunit
   only:
