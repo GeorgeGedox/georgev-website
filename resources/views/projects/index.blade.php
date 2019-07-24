@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="heading pb-5 pt-2">
-                    <h1>Portfolio</h1>
+                    <h1>Projects</h1>
                     <p>Here I list projects that I've worked on and favorites that never went further than the design phase.</p>
                     @include('layout.social')
                 </div>

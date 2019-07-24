@@ -48,8 +48,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.portfolio.') ? 'active' : '' }}" href="{{ route('dashboard.portfolio.index') }}">
-                        <i class="fas fa-camera text-orange"></i> {{ __('Portfolio') }}
+                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.projects.') ? 'active' : '' }}" href="{{ route('dashboard.projects.index') }}">
+                        <i class="fas fa-camera text-orange"></i> {{ __('Projects') }}
                     </a>
                 </li>
                 <li class="nav-item">
