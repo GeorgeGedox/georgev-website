@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Dashboard\Settings;
 
 use App\Setting;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Validation\Rule;
 
 class GeneralController extends Controller
 {
@@ -59,5 +61,64 @@ class GeneralController extends Controller
         Setting::add('general_social', $data->all(), 'array');
 
         return back()->with('status', 'Social settings updated!');
+    }
+
+    public function dribbble(Request $request)
+    {
+        $request->validate([
+            'client_id' => Rule::requiredIf(function (){
+                return empty(\setting('general_dribbble_client_id'));
+            }),
+            'dribbble_enable' => 'nullable'
+        ]);
+
+        if ($request->has('client_id')){
+            Setting::add('general_dribbble_client_id', $request->input('client_id'));
+        }
+
+        if ($request->has('dribbble_enable')){
+            Setting::set('general_dribbble_enable', true, 'bool');
+        }else{
+            Setting::set('general_dribbble_enable', false, 'bool');
+        }
+
+        return back()->with('status', 'Dribbble settings saved!');
+    }
+
+    public function dribbbleReset(Request $request)
+    {
+        $request->validate([
+            'remove_integration' => 'accepted'
+        ]);
+
+        Setting::remove('general_dribbble_client_id');
+        Setting::remove('dribbble_access_token');
+        Setting::remove('general_dribbble_enable');
+
+        return back()->with('status', 'Dribbble integration reset!');
+    }
+
+    public function dribbbleAuth(Request $request)
+    {
+        if (!$request->has('code')){
+            abort(404);
+        }
+
+        $client = new Client();
+
+        $response = $client->post('https://dribbble.com/oauth/token',[
+            'form_params' => [
+                'client_id' => \setting('general_dribbble_client_id'),
+                'client_secret' => 'f7e2361d695945c7cea3bd4e1455e4929066ac727be4573d08cc316d220e051d',
+                'code' => $request->query('code'),
+                'redirect_uri' => route('dashboard.settings.general.dribbble-auth')
+            ]
+        ]);
+
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        Setting::add('dribbble_access_token', $data['access_token']);
+
+        return redirect()->route('dashboard.settings.general.index')->with('status', 'Dribbble access token successfully set!');
     }
 }

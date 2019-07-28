@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="card bg-secondary shadow">
+                <div class="card bg-secondary shadow mb-4">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <h3 class="col-12 mb-0">{{ __('Social links') }}</h3>
@@ -181,6 +181,89 @@
                                 </script>
                             @endpush
                         </form>
+                    </div>
+                </div>
+
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <h3 class="col-12 mb-0">{{ __('Dribbble integration') }}</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{ route('dashboard.settings.general.dribbble') }}" autocomplete="off">
+                            @csrf
+
+                            <p>How to use:</p>
+                            <p>After updating the Client ID you'll see the "Authorize" button, click on it and give authorize your app, this gives this application access to your
+                                <strong>public</strong>
+                                account.</p>
+                            <p>After giving access a new setting will appear, <strong>Use Dribbble shots instead of projects</strong>, enable this to take advantage of the Dribbble integration.</p>
+
+                            @if(setting('general_dribbble_client_id'))
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            @if(setting('dribbble_access_token'))
+                                                <div class="col-12 text-center">
+                                                    <label class="form-control-label">{{ __('Use Dribbble shots instead of projects') }}</label>
+                                                    <div class="form-group">
+                                                        <label class="custom-toggle">
+                                                            <input type="checkbox" value="true" name="dribbble_enable" @if(setting('general_dribbble_enable')) checked @endif>
+                                                            <span class="custom-toggle-slider rounded-circle"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-success mt-2">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="col-12 text-center">
+                                                    <a href="https://dribbble.com/oauth/authorize?client_id={{ urlencode(setting('general_dribbble_client_id')) }}&redirect_uri={{ urlencode(route('dashboard.settings.general.dribbble-auth')) }}"
+                                                       class="btn btn-lg btn-danger"><i class="fab fa-dribbble"></i> Authorize</a>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="form-control-label">{{ __('App Client ID') }}</label>
+                                        <div class="form-group{{ $errors->has('client_id') ? ' has-danger' : '' }}">
+                                            <input type="text" name="client_id" class="form-control form-control-alternative{{ $errors->has('client_id') ? ' is-invalid' : '' }}"
+                                                   placeholder="{{ __('client_id') }}"
+                                                   value="{{ old('client_id', setting('general_dribbble_client_id')) }}">
+
+                                            @if ($errors->has('client_id'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('client_id') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-success mt-2">{{ __('Save') }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        </form>
+
+                        @if(setting('general_dribbble_client_id'))
+                            <hr>
+                            <div class="text-center">
+                                <form method="post" action="{{ route('dashboard.settings.general.dribbble-reset') }}" autocomplete="off">
+                                    @csrf
+                                    @method('put')
+
+                                    <input type="text" name="remove_integration" value="true" hidden>
+                                    <button type="submit" class="btn btn-danger mt-2">{{ __('Reset Integration') }}</button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -196,5 +196,10 @@ class Setting extends Model
         static::created(function (){
             self::flushCache();
         });
+
+        // Flush cache on delete
+        static::deleted(function (){
+            self::flushCache();
+        });
     }
 }
