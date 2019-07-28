@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.app', ['title' => __('Portfolio management')])
+@extends('dashboard.layouts.app', ['title' => __('Projects management')])
 
 @section('content')
     @include('dashboard.partials.page.header', ['title' => __('Add new project')])
@@ -13,12 +13,12 @@
                                 <h3 class="mb-0">{{ __('New project') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('dashboard.portfolio.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('projects') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('dashboard.portfolio.store') }}" enctype="multipart/form-data" autocomplete="off">
+                        <form method="post" action="{{ route('dashboard.projects.store') }}" enctype="multipart/form-data" autocomplete="off">
                             @csrf
 
                             <div class="row">

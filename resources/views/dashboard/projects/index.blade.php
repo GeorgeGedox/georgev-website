@@ -1,7 +1,7 @@
-@extends('dashboard.layouts.app', ['title' => __('Portfolio management')])
+@extends('dashboard.layouts.app', ['title' => __('Projects management')])
 
 @section('content')
-    @include('dashboard.partials.page.header', ['title' => __('Portfolio management')])
+    @include('dashboard.partials.page.header', ['title' => __('Projects management')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -13,7 +13,7 @@
                                 <h3 class="mb-0">{{ __('Projects') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('dashboard.portfolio.create') }}" class="btn btn-sm btn-primary">{{ __('Add project') }}</a>
+                                <a href="{{ route('dashboard.projects.create') }}" class="btn btn-sm btn-primary">{{ __('Add project') }}</a>
                             </div>
                         </div>
                     </div>
@@ -53,11 +53,11 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <form action="{{ route('dashboard.portfolio.destroy', $project) }}" method="post">
+                                                <form action="{{ route('dashboard.projects.destroy', $project) }}" method="post">
                                                     @csrf
                                                     @method('delete')
 
-                                                    <a class="dropdown-item" href="{{ route('dashboard.portfolio.edit', $project) }}">{{ __('Edit') }}</a>
+                                                    <a class="dropdown-item" href="{{ route('dashboard.projects.edit', $project) }}">{{ __('Edit') }}</a>
                                                     <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project?") }}') ? this.parentElement.submit() : ''">
                                                         {{ __('Delete') }}
                                                     </button>

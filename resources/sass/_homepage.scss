@@ -14,6 +14,7 @@
     width: 100%;
     height: 100%;
     top: 0;
+    left: 0;
 
     @media (max-width: 1400px){
       background: url("../assets/backdrop.png") top right -150px no-repeat;
@@ -86,11 +87,20 @@
   .action{
     .btn{
       display: inline-block;
+
+      @include media-breakpoint-down(sm){
+        display: block;
+        margin-bottom: 20px;
+      }
     }
 
     .social{
       margin-left: 15px;
       display: inline-block;
+
+      @include media-breakpoint-down(sm){
+        margin-left: 0;
+      }
     }
   }
 

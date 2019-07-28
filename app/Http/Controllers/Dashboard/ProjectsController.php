@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 
-class PortfolioController extends Controller
+class ProjectsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        return view('dashboard.portfolio.index', [
+        return view('dashboard.projects.index', [
             'projects' => Project::paginate(15)
         ]);
     }
@@ -28,7 +28,7 @@ class PortfolioController extends Controller
      */
     public function create()
     {
-        return view('dashboard.portfolio.create');
+        return view('dashboard.projects.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class PortfolioController extends Controller
             })
             ->toMediaCollection();
 
-        return redirect()->route('dashboard.portfolio.index')->with('status', 'Project successfully created!');
+        return redirect()->route('dashboard.projects.index')->with('status', 'Project successfully created!');
     }
 
     /**
@@ -78,7 +78,7 @@ class PortfolioController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('dashboard.portfolio.edit', compact('project'));
+        return view('dashboard.projects.edit', compact('project'));
     }
 
     /**
@@ -110,7 +110,7 @@ class PortfolioController extends Controller
                 ->toMediaCollection();
         }
 
-        return redirect()->route('dashboard.portfolio.index')->with('status', 'Project successfully created!');
+        return redirect()->route('dashboard.projects.index')->with('status', 'Project successfully created!');
     }
 
     /**
@@ -125,9 +125,9 @@ class PortfolioController extends Controller
             $project->delete();
         } catch (\Exception $e) {
             Log::error("Failed to delete module with id: {$project->id}");
-            return redirect()->route('dashboard.portfolio.index')->with('error', 'Failed to delete the specified resource. Try again.');
+            return redirect()->route('dashboard.projects.index')->with('error', 'Failed to delete the specified resource. Try again.');
         }
 
-        return redirect()->route('dashboard.portfolio.index')->with('status', 'Resource successfully deleted!');
+        return redirect()->route('dashboard.projects.index')->with('status', 'Resource successfully deleted!');
     }
 }
