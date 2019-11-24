@@ -221,7 +221,7 @@
                                                 </div>
                                             @else
                                                 <div class="col-12 text-center">
-                                                    <a href="https://dribbble.com/oauth/authorize?client_id={{ urlencode(setting('general_dribbble_client_id')) }}&redirect_uri={{ urlencode(route('dashboard.settings.general.dribbble-auth')) }}"
+                                                    <a href="{{ \App\Classes\DribbbleAPI::generateAuthorizationURL(setting('general_dribbble_client_id'), route('dashboard.settings.general.dribbble-auth')) }}"
                                                        class="btn btn-lg btn-danger"><i class="fab fa-dribbble"></i> Authorize</a>
                                                 </div>
                                             @endif

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Settings;
 
+use App\Classes\DribbbleAPI;
 use App\Setting;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -22,9 +23,9 @@ class GeneralController extends Controller
             'message' => 'string|min:6|nullable'
         ]);
 
-        if (app()->isDownForMaintenance()){
+        if (app()->isDownForMaintenance()) {
             Artisan::call('up');
-        }else{
+        } else {
             Artisan::call('down', [
                 '--message' => $request->input('message') ?? 'Down for maintenance.'
             ]);
@@ -54,7 +55,7 @@ class GeneralController extends Controller
             'social.*.url' => 'required_with:social.*.icon,social*.name|nullable|url|max:250',
         ]);
 
-        $data = collect($request->input('social'))->reject(function ($item){
+        $data = collect($request->input('social'))->reject(function ($item) {
             return empty($item['name']);
         });
 
@@ -66,19 +67,19 @@ class GeneralController extends Controller
     public function dribbble(Request $request)
     {
         $request->validate([
-            'client_id' => Rule::requiredIf(function (){
+            'client_id' => Rule::requiredIf(function () {
                 return empty(\setting('general_dribbble_client_id'));
             }),
             'dribbble_enable' => 'nullable'
         ]);
 
-        if ($request->has('client_id')){
+        if ($request->has('client_id')) {
             Setting::add('general_dribbble_client_id', $request->input('client_id'));
         }
 
-        if ($request->has('dribbble_enable')){
+        if ($request->has('dribbble_enable')) {
             Setting::set('general_dribbble_enable', true, 'bool');
-        }else{
+        } else {
             Setting::set('general_dribbble_enable', false, 'bool');
         }
 
@@ -100,22 +101,12 @@ class GeneralController extends Controller
 
     public function dribbbleAuth(Request $request)
     {
-        if (!$request->has('code')){
+        if (!$request->has('code')) {
             abort(404);
         }
 
-        $client = new Client();
-
-        $response = $client->post('https://dribbble.com/oauth/token',[
-            'form_params' => [
-                'client_id' => \setting('general_dribbble_client_id'),
-                'client_secret' => 'f7e2361d695945c7cea3bd4e1455e4929066ac727be4573d08cc316d220e051d',
-                'code' => $request->query('code'),
-                'redirect_uri' => route('dashboard.settings.general.dribbble-auth')
-            ]
-        ]);
-
-        $data = json_decode($response->getBody()->getContents(), true);
+        $api = new DribbbleAPI();
+        $data = $api->authenticate(\setting('general_dribbble_client_id'), $request->query('code'), route('dashboard.settings.general.dribbble-auth'));
 
         Setting::add('dribbble_access_token', $data['access_token']);
 
