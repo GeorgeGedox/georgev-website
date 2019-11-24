@@ -1,0 +1,30 @@
+version: v1.0
+name: Laravel
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Install Dependencies
+    task:
+      env_vars:
+        - name: APP_ENV
+          value: prod
+      jobs:
+        - name: composer
+          commands:
+            - checkout
+            - cache restore
+            - composer install
+            - npm install
+            - cache store
+            - cp .env.example .env
+            - 'php artisan key:generate'
+  - name: Run Unit tests
+    task:
+      jobs:
+        - name: phpunit
+          commands:
+            - checkout
+            - cache restore
+            - ./vendor/bin/phpunit
