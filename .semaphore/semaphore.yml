@@ -20,6 +20,9 @@ blocks:
             - cache store
             - cp .env.example .env
             - 'php artisan key:generate'
+            - 'php artisan config:clear'
+            - 'php artisan config:cache'
+    dependencies: []
   - name: Run Unit tests
     task:
       jobs:
@@ -28,3 +31,5 @@ blocks:
             - checkout
             - cache restore
             - ./vendor/bin/phpunit
+    dependencies:
+      - Install Dependencies
