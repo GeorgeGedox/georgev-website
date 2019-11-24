@@ -28,7 +28,7 @@ blocks:
           commands:
             - checkout
             - cache restore
-            - ls
+            - ls -lah
             - ./vendor/bin/phpunit
     dependencies:
       - Install Dependencies
