@@ -26,6 +26,8 @@ blocks:
       jobs:
         - name: phpunit
           commands:
+            - checkout
+            - cache restore
             - ls
             - ./vendor/bin/phpunit
     dependencies:
