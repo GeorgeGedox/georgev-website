@@ -18,8 +18,6 @@ blocks:
             - composer install
             - npm install
             - cache store
-            - cp .env.example .env
-            - 'php artisan key:generate'
     dependencies: []
   - name: Run Unit tests
     task:
@@ -28,7 +26,8 @@ blocks:
           commands:
             - checkout
             - cache restore
-            - ls -lah
+            - cp .env.example .env
+            - 'php artisan key:generate'
             - ./vendor/bin/phpunit
     dependencies:
       - Install Dependencies
