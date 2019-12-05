@@ -27,7 +27,7 @@ blocks:
       - checkout
       - cache restore
       - cp .env.example .env
-      - php artisan key:generate
+      - 'php artisan key:generate'
       - ./vendor/bin/phpunit
   dependencies:
   - Install Dependencies
@@ -36,18 +36,15 @@ blocks:
   - Run Tests
   task:
     jobs:
-    - name: ssh
+    - name: production
       commands:
-      - ssh-add <(echo "$SSH_DEPLOY")
-    - name: deployer
-      commands:
+      - checkout
+      - ssh-add ~/deploy_key
+      - cp ~/hosts.yml .
       - 'curl -LO https://deployer.org/releases/v6.4.6/deployer.phar'
       - chmod +x deployer.phar
-      - checkout
-      - cp ~/hosts.yml .
       - php deployer.phar deploy production -vvv
     secrets:
-    - name: Deployer Hosts File
-    - name: Hetzner Deployer
+    - name: Hetzner Deployment
   skip:
     when: branch != 'master'
