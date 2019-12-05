@@ -1,0 +1,9 @@
+georgev.design:
+  hostname: "192.168.0.1"
+  user: deployer
+  port: 22
+  forwardAgent: true
+  deploy_path: /var/www/public_html
+  sshOptions:
+    UserKnownHostsFile: /dev/null
+    StrictHostKeyChecking: no
