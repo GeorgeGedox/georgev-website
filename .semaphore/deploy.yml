@@ -1,0 +1,33 @@
+version: v1.0
+name: Tests
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Install Dependencies
+    task:
+      env_vars:
+        - name: APP_ENV
+          value: prod
+      jobs:
+        - name: composer
+          commands:
+            - checkout
+            - cache restore
+            - composer install
+            - npm install
+            - cache store
+    dependencies: []
+  - name: Run Unit tests
+    task:
+      jobs:
+        - name: phpunit
+          commands:
+            - checkout
+            - cache restore
+            - cp .env.example .env
+            - 'php artisan key:generate'
+            - ./vendor/bin/phpunit
+    dependencies:
+      - Install Dependencies
