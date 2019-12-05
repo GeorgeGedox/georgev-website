@@ -18,6 +18,8 @@ class ProjectsController extends Controller
             $projectsData = Project::all();
         }
 
+//        dd($projectsData);
+
         return view('projects.index', [
             'projects' => $projectsData
         ]);

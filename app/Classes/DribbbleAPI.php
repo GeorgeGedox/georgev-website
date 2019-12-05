@@ -38,15 +38,14 @@ class DribbbleAPI
     }
 
     /**
-     * @param $client_id String Application Client ID
      * @param $code String Code returned from the authorization callback
      * @param $redirect_uri String URL where users will be sent
      * @return array Array containing the 'access_token' needed for future requests
      */
-    public function authenticate($client_id, $code, $redirect_uri = null)
+    public function authenticate($code, $redirect_uri = null)
     {
         $params = [
-            'client_id' => $client_id,
+            'client_id' => config('services.dribbble.client_id'),
             'client_secret' => config('services.dribbble.client_secret'),
             'code' => $code
         ];

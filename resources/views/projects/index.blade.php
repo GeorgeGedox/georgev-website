@@ -56,7 +56,29 @@
     </div>
 
     @if(setting('general_dribbble_enable'))
-
+        @foreach($projects as $index => $project)
+            <div class="work-viewer" data-id="{{ $index }}">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="image col-8 lazy-load" data-src="{{ $project['images']['hidpi'] }}"></div>
+                        <div class="info col-4" style="display: flex; flex-flow: column nowrap">
+                            <h1>{{ $project['title'] }}</h1>
+                            <p>
+                                <small>{{ implode(', ' ,$project['tags']) }}</small>
+                            </p>
+                            <div style="flex: 1 0;">
+                                {!! $project['description'] !!}
+                            </div>
+                            <div class="action">
+                                <a href="{{ $project['html_url'] }}">view on dribbble.com</a>
+                                <a href="{{ $project['images']['hidpi'] }}" target="_blank" title="{{ __('View full image') }}"><i class="fas fa-expand"></i></a>
+                                <button class="btn btn-primary btn-no-shadow view-close" type="button">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     @else
         @foreach($projects as $project)
             <div class="work-viewer" data-id="{{ $project->id }}">
@@ -71,7 +93,7 @@
                             <p>{{ $project->description }}</p>
                             <div class="action">
                                 <a href="{{ $project->getFirstMediaUrl() }}" target="_blank" title="{{ __('View full image') }}"><i class="fas fa-expand"></i></a>
-                                <button class="btn btn-primary btn-no-shadow view-close" type="button">Go back</button>
+                                <button class="btn btn-primary btn-no-shadow view-close" type="button">Close</button>
                             </div>
                         </div>
                     </div>

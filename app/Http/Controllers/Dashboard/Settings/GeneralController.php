@@ -67,15 +67,8 @@ class GeneralController extends Controller
     public function dribbble(Request $request)
     {
         $request->validate([
-            'client_id' => Rule::requiredIf(function () {
-                return empty(\setting('general_dribbble_client_id'));
-            }),
             'dribbble_enable' => 'nullable'
         ]);
-
-        if ($request->has('client_id')) {
-            Setting::add('general_dribbble_client_id', $request->input('client_id'));
-        }
 
         if ($request->has('dribbble_enable')) {
             Setting::set('general_dribbble_enable', true, 'bool');
@@ -92,7 +85,6 @@ class GeneralController extends Controller
             'remove_integration' => 'accepted'
         ]);
 
-        Setting::remove('general_dribbble_client_id');
         Setting::remove('dribbble_access_token');
         Setting::remove('general_dribbble_enable');
 
@@ -106,7 +98,7 @@ class GeneralController extends Controller
         }
 
         $api = new DribbbleAPI();
-        $data = $api->authenticate(\setting('general_dribbble_client_id'), $request->query('code'), route('dashboard.settings.general.dribbble-auth'));
+        $data = $api->authenticate($request->query('code'), route('dashboard.settings.general.dribbble-auth'));
 
         Setting::add('dribbble_access_token', $data['access_token']);
 

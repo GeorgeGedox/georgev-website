@@ -193,14 +193,7 @@
                     <div class="card-body">
                         <form method="post" action="{{ route('dashboard.settings.general.dribbble') }}" autocomplete="off">
                             @csrf
-
-                            <p>How to use:</p>
-                            <p>After updating the Client ID you'll see the "Authorize" button, click on it and give authorize your app, this gives this application access to your
-                                <strong>public</strong>
-                                account.</p>
-                            <p>After giving access a new setting will appear, <strong>Use Dribbble shots instead of projects</strong>, enable this to take advantage of the Dribbble integration.</p>
-
-                            @if(setting('general_dribbble_client_id'))
+                            @if(!empty(config('services.dribbble.client_id')) && !empty(config('services.dribbble.client_secret')))
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
@@ -220,8 +213,11 @@
                                                     </div>
                                                 </div>
                                             @else
+                                                <div class="col-12">
+                                                    <p>This section allows you to link your dribbble.com account with this application and display your shots in your portfolio.</p>
+                                                </div>
                                                 <div class="col-12 text-center">
-                                                    <a href="{{ \App\Classes\DribbbleAPI::generateAuthorizationURL(setting('general_dribbble_client_id'), route('dashboard.settings.general.dribbble-auth')) }}"
+                                                    <a href="{{ \App\Classes\DribbbleAPI::generateAuthorizationURL(config('services.dribbble.client_id'), route('dashboard.settings.general.dribbble-auth')) }}"
                                                        class="btn btn-lg btn-danger"><i class="fab fa-dribbble"></i> Authorize</a>
                                                 </div>
                                             @endif
@@ -229,30 +225,16 @@
                                     </div>
                                 </div>
                             @else
-                                <div class="row">
-                                    <div class="col-12">
-                                        <label class="form-control-label">{{ __('App Client ID') }}</label>
-                                        <div class="form-group{{ $errors->has('client_id') ? ' has-danger' : '' }}">
-                                            <input type="text" name="client_id" class="form-control form-control-alternative{{ $errors->has('client_id') ? ' is-invalid' : '' }}"
-                                                   placeholder="{{ __('client_id') }}"
-                                                   value="{{ old('client_id', setting('general_dribbble_client_id')) }}">
-
-                                            @if ($errors->has('client_id'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('client_id') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-success mt-2">{{ __('Save') }}</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <p><strong class="text-danger">Dribbble application credentials not found!</strong></p>
+                                <p>In order to use this function please make sure you've updated the following variables in your <strong>.env</strong> file:</p>
+                                <ul>
+                                    <li>DRIBBBLE_CLIENT_ID</li>
+                                    <li>DRIBBBLE_CLIENT_SECRET</li>
+                                </ul>
                             @endif
                         </form>
 
-                        @if(setting('general_dribbble_client_id'))
+                        @if(setting('dribbble_access_token'))
                             <hr>
                             <div class="text-center">
                                 <form method="post" action="{{ route('dashboard.settings.general.dribbble-reset') }}" autocomplete="off">
