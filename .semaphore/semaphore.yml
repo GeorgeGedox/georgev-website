@@ -1,0 +1,44 @@
+version: v1.0
+name: CI/CD Test & Deployment
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Install Dependencies
+    task:
+      env_vars:
+        - name: APP_ENV
+          value: prod
+      jobs:
+        - name: composer
+          commands:
+            - checkout
+            - cache restore
+            - composer install
+            - npm install
+            - cache store
+    dependencies: []
+  - name: Run Tests
+    task:
+      jobs:
+        - name: phpunit
+          commands:
+            - checkout
+            - cache restore
+            - cp .env.example .env
+            - 'php artisan key:generate'
+            - ./vendor/bin/phpunit
+    dependencies:
+      - Install Dependencies
+  - name: Deploy
+    dependencies:
+      - Run Tests
+    task:
+      jobs:
+        - name: deployer
+          commands:
+            - 'curl -LO https://deployer.org/releases/v6.4.6/deployer.phar'
+            - chmod +x deployer.phar
+    skip:
+      when: branch != 'master'
