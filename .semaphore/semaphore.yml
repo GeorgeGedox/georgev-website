@@ -39,6 +39,7 @@ blocks:
     - name: production
       commands:
       - checkout
+      - chmod 600 ~/deploy_key
       - ssh-add ~/deploy_key
       - cp ~/hosts.yml .
       - 'curl -LO https://deployer.org/releases/v6.4.6/deployer.phar'
