@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard\Settings;
 
+use App\Classes\DribbbleAPI;
 use App\Setting;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Validation\Rule;
 
 class GeneralController extends Controller
 {
@@ -20,9 +23,9 @@ class GeneralController extends Controller
             'message' => 'string|min:6|nullable'
         ]);
 
-        if (app()->isDownForMaintenance()){
+        if (app()->isDownForMaintenance()) {
             Artisan::call('up');
-        }else{
+        } else {
             Artisan::call('down', [
                 '--message' => $request->input('message') ?? 'Down for maintenance.'
             ]);
@@ -52,12 +55,53 @@ class GeneralController extends Controller
             'social.*.url' => 'required_with:social.*.icon,social*.name|nullable|url|max:250',
         ]);
 
-        $data = collect($request->input('social'))->reject(function ($item){
+        $data = collect($request->input('social'))->reject(function ($item) {
             return empty($item['name']);
         });
 
         Setting::add('general_social', $data->all(), 'array');
 
         return back()->with('status', 'Social settings updated!');
+    }
+
+    public function dribbble(Request $request)
+    {
+        $request->validate([
+            'dribbble_enable' => 'nullable'
+        ]);
+
+        if ($request->has('dribbble_enable')) {
+            Setting::set('general_dribbble_enable', true, 'bool');
+        } else {
+            Setting::set('general_dribbble_enable', false, 'bool');
+        }
+
+        return back()->with('status', 'Dribbble settings saved!');
+    }
+
+    public function dribbbleReset(Request $request)
+    {
+        $request->validate([
+            'remove_integration' => 'accepted'
+        ]);
+
+        Setting::remove('dribbble_access_token');
+        Setting::remove('general_dribbble_enable');
+
+        return back()->with('status', 'Dribbble integration reset!');
+    }
+
+    public function dribbbleAuth(Request $request)
+    {
+        if (!$request->has('code')) {
+            abort(404);
+        }
+
+        $api = new DribbbleAPI();
+        $data = $api->authenticate($request->query('code'), route('dashboard.settings.general.dribbble-auth'));
+
+        Setting::add('dribbble_access_token', $data['access_token']);
+
+        return redirect()->route('dashboard.settings.general.index')->with('status', 'Dribbble access token successfully set!');
     }
 }

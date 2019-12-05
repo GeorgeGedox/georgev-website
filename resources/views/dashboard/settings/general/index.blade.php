@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="card bg-secondary shadow">
+                <div class="card bg-secondary shadow mb-4">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <h3 class="col-12 mb-0">{{ __('Social links') }}</h3>
@@ -181,6 +181,71 @@
                                 </script>
                             @endpush
                         </form>
+                    </div>
+                </div>
+
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <h3 class="col-12 mb-0">{{ __('Dribbble integration') }}</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{ route('dashboard.settings.general.dribbble') }}" autocomplete="off">
+                            @csrf
+                            @if(!empty(config('services.dribbble.client_id')) && !empty(config('services.dribbble.client_secret')))
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            @if(setting('dribbble_access_token'))
+                                                <div class="col-12 text-center">
+                                                    <label class="form-control-label">{{ __('Use Dribbble shots instead of projects') }}</label>
+                                                    <div class="form-group">
+                                                        <label class="custom-toggle">
+                                                            <input type="checkbox" value="true" name="dribbble_enable" @if(setting('general_dribbble_enable')) checked @endif>
+                                                            <span class="custom-toggle-slider rounded-circle"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-success mt-2">{{ __('Save') }}</button>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="col-12">
+                                                    <p>This section allows you to link your dribbble.com account with this application and display your shots in your portfolio.</p>
+                                                </div>
+                                                <div class="col-12 text-center">
+                                                    <a href="{{ \App\Classes\DribbbleAPI::generateAuthorizationURL(config('services.dribbble.client_id'), route('dashboard.settings.general.dribbble-auth')) }}"
+                                                       class="btn btn-lg btn-danger"><i class="fab fa-dribbble"></i> Authorize</a>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <p><strong class="text-danger">Dribbble application credentials not found!</strong></p>
+                                <p>In order to use this function please make sure you've updated the following variables in your <strong>.env</strong> file:</p>
+                                <ul>
+                                    <li>DRIBBBLE_CLIENT_ID</li>
+                                    <li>DRIBBBLE_CLIENT_SECRET</li>
+                                </ul>
+                            @endif
+                        </form>
+
+                        @if(setting('dribbble_access_token'))
+                            <hr>
+                            <div class="text-center">
+                                <form method="post" action="{{ route('dashboard.settings.general.dribbble-reset') }}" autocomplete="off">
+                                    @csrf
+                                    @method('put')
+
+                                    <input type="text" name="remove_integration" value="true" hidden>
+                                    <button type="submit" class="btn btn-danger mt-2">{{ __('Reset Integration') }}</button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

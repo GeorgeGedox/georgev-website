@@ -44,4 +44,10 @@ return [
         ],
     ],
 
+    'dribbble' => [
+        'api_base' => 'https://api.dribbble.com/v2/',
+        'client_id' => env('DRIBBBLE_CLIENT_ID', null),
+        'client_secret' => env('DRIBBBLE_CLIENT_SECRET', null),
+    ]
+
 ];
