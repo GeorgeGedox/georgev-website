@@ -11140,10 +11140,12 @@ header.sticky.sticky-on .logo {
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
-  height: 420px;
-  padding: 25px;
+  height: 260px;
   transition: 100ms;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 20px -16px rgba(50, 50, 74, 0.6);
 }
 
 @media (max-width: 1199.98px) {
@@ -11158,18 +11160,31 @@ header.sticky.sticky-on .logo {
   }
 }
 
-.gallery .img-wrap .image:hover {
-  transform: translate3d(0, -10px, 0);
+.gallery .img-wrap .image:hover .text {
+  transform: translateY(0%);
 }
 
 .gallery .img-wrap .image .text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   display: block;
   width: 100%;
   color: #32324a;
+  padding: 10px 25px;
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(100%);
+  transition: 150ms;
 }
 
 .gallery .img-wrap .image .text h3 {
   margin: 0;
+  font-size: 16px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: calc(100%);
+  overflow: hidden;
 }
 
 .gallery .img-wrap .image .text span {

@@ -18,10 +18,12 @@
       background-size: cover;
       background-position: top center;
       background-repeat: no-repeat;
-      height: 420px;
-      padding: 25px;
+      height: 260px;
       transition: $transition-time;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 20px -16px rgba($color-text-heading, 0.6);
 
       @include media-breakpoint-down(lg){
         height: 340px;
@@ -32,16 +34,31 @@
       }
 
       &:hover{
-        transform: translate3d(0, -10px, 0);
+        .text{
+          transform: translateY(0%);
+        }
       }
 
       .text{
+        position: absolute;
+        bottom: 0;
+        left: 0;
         display: block;
         width: 100%;
         color: $color-text-heading;
+        padding: 10px 25px;
+        background: rgba(#fff, 0.8);
+        transform: translateY(100%);
+        transition: 150ms;
 
         h3{
           margin: 0;
+          font-size: 16px;
+          display: inline-block;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: calc(100%);
+          overflow: hidden;
         }
 
         span{
