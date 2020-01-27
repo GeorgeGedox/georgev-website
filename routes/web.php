@@ -28,8 +28,11 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::patch('/profile', 'Dashboard\ProfileController@update')->name('profile.update');
         Route::patch('/profile/password', 'Dashboard\ProfileController@passwordUpdate')->name('profile.password');
 
-        // Portfolio
+        // Projects
         Route::resource('projects', 'Dashboard\ProjectsController');
+
+        // Blog
+        Route::resource('blog', 'Dashboard\BlogController')->parameter('blog', 'post');
 
         // Settings
         Route::prefix('settings')->name('settings.')->group(function (){
