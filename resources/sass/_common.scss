@@ -40,8 +40,8 @@ body {
       }
     }
 
-    .btn-primary{
-      &:hover{
+    .btn-primary {
+      &:hover {
         transform: translateY(-5px) !important;
       }
     }
@@ -75,6 +75,20 @@ a {
 pre {
   background: #eee;
   padding: 10px;
+
+  code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+  }
+}
+
+code {
+  color: #c7254e;
+  background-color: #f9f2f4;
 }
 
 blockquote {
@@ -84,7 +98,7 @@ blockquote {
 
 table {
   width: 100%;
-  border: 1px solid $color-text-body;
+  border: 1px solid #ccc;
   margin-bottom: 20px;
 
   thead {
@@ -93,8 +107,8 @@ table {
 
       th {
         font-weight: 700;
-        border-bottom: 2px solid $color-text-body;
-        border-right: 1px solid $color-text-body;
+        border-bottom: 2px solid #ccc;
+        border-right: 1px solid #ccc;
         padding: 8px 10px;
 
         &:last-child {
@@ -107,8 +121,8 @@ table {
   tr {
     td {
       font-weight: normal;
-      border-bottom: 1px solid $color-text-body;
-      border-right: 1px solid $color-text-body;
+      border-bottom: 1px solid #ccc;
+      border-right: 1px solid #ccc;
       padding: 8px 10px;
 
       &:last-child {
@@ -116,7 +130,7 @@ table {
       }
     }
 
-    &:nth-child(2n + 1){
+    &:nth-child(2n + 1) {
       background: #f5f5f5;
     }
   }
@@ -167,7 +181,7 @@ table {
     }
   }
 
-  &.btn-no-shadow{
+  &.btn-no-shadow {
     box-shadow: none !important;
   }
 

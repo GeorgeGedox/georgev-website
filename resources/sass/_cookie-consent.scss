@@ -1,0 +1,29 @@
+.js-cookie-consent {
+  display: block;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  text-align: center;
+  padding: 20px 25px;
+  box-shadow: 0 0 12px rgba(#000, 0.3);
+
+  span.cookie-consent__message{
+    margin-right: 45px;
+  }
+
+  button.js-cookie-consent-agree{
+    border-radius: 200px;
+    background-color: $color-primary;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 25px;
+    border: 0;
+    transition: 150ms;
+
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+}

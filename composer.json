@@ -13,8 +13,9 @@
     "davidbadura/faker-markdown-generator": "^1.0",
     "fideloper/proxy": "^4.0",
     "guzzlehttp/guzzle": "^6.3",
-    "laravel/framework": "5.8.*",
+    "laravel/framework": "^6.0",
     "laravel/tinker": "^1.0",
+    "spatie/laravel-cookie-consent": "^2.10",
     "spatie/laravel-medialibrary": "^7.0.0"
   },
   "require-dev": {

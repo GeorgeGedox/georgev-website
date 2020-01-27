@@ -19,3 +19,19 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Handle caching
+<IfModule mod_expires.c>
+    ExpiresActive on
+    AddType image/x-icon .ico
+    ExpiresDefault "access plus 2 hours"
+    ExpiresByType image/gif "access plus 1 months"
+    ExpiresByType image/jpg "access plus 1 months"
+    ExpiresByType image/jpeg "access plus 1 months"
+    ExpiresByType image/png "access plus 1 months"
+    ExpiresByType text/js "access plus 1 months"
+    ExpiresByType text/javascript "access plus 1 months"
+    ExpiresByType text/plain "access plus 30 days"
+    ExpiresByType image/x-icon "access plus 30 days"
+    ExpiresByType image/ico "access plus 30 days"
+</IfModule>

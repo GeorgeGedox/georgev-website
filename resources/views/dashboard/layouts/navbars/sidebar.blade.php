@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.blog.') ? 'active' : '' }}" href="{{ route('dashboard.index') }}">
+                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.blog.') ? 'active' : '' }}" href="{{ route('dashboard.blog.index') }}">
                         <i class="fas fa-pen-nib text-info"></i> {{ __('Blog') }}
                     </a>
                 </li>

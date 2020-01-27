@@ -43,6 +43,8 @@
     @yield('content')
 </main>
 
+@include('cookieConsent::index')
+
 <footer>
     <p>&copy; {{ now()->year }} georgev.design</p>
 </footer>
