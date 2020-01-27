@@ -110,7 +110,7 @@ class ProjectsController extends Controller
                 ->toMediaCollection();
         }
 
-        return redirect()->route('dashboard.projects.index')->with('status', 'Project successfully created!');
+        return redirect()->route('dashboard.projects.index')->with('status', 'Project successfully updated!');
     }
 
     /**
