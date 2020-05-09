@@ -15,6 +15,7 @@
     "guzzlehttp/guzzle": "^6.3",
     "laravel/framework": "^6.0",
     "laravel/tinker": "^1.0",
+    "parsedown/laravel": "^1.2",
     "spatie/laravel-cookie-consent": "^2.10",
     "spatie/laravel-medialibrary": "^7.0.0"
   },
