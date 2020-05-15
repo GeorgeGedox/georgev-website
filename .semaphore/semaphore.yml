@@ -15,6 +15,7 @@ blocks:
       commands:
       - checkout
       - cache restore
+      - phpbrew ext install exif
       - composer install
       - npm install
       - cache store
