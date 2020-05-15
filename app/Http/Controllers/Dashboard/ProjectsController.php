@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Project;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig;
 
 class ProjectsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
@@ -24,7 +31,7 @@ class ProjectsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
@@ -34,8 +41,8 @@ class ProjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -62,8 +69,8 @@ class ProjectsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return void
      */
     public function show(Project $project)
     {
@@ -73,8 +80,8 @@ class ProjectsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return View
      */
     public function edit(Project $project)
     {
@@ -84,9 +91,12 @@ class ProjectsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Project $project
+     * @return RedirectResponse
+     * @throws DiskDoesNotExist
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
     public function update(Request $request, Project $project)
     {
@@ -116,14 +126,14 @@ class ProjectsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return RedirectResponse
      */
     public function destroy(Project $project)
     {
         try {
             $project->delete();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error("Failed to delete module with id: {$project->id}");
             return redirect()->route('dashboard.projects.index')->with('error', 'Failed to delete the specified resource. Try again.');
         }
