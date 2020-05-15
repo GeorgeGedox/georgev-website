@@ -31,6 +31,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         // Projects
         Route::resource('projects', 'Dashboard\ProjectsController');
 
+        // Media
+        Route::resource('media', 'Dashboard\MediaController')->only(['index', 'create', 'store']);
+        Route::delete('/media/delete', 'Dashboard\MediaController@delete')->name('media.delete');
+
         // Blog
         Route::resource('blog', 'Dashboard\BlogController')->parameter('blog', 'post');
 

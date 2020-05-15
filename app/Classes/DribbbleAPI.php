@@ -2,7 +2,6 @@
 
 namespace App\Classes;
 
-
 use GuzzleHttp\Client;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -79,7 +78,7 @@ class DribbbleAPI
         if (isset($perPage)){
             $cachePagination = Cache::get('dribbble.shots.pagination');
             if ($cachePagination !== $perPage){
-                Cache::forever('dribbble.shots.pagination', $perPage, 7200);
+                Cache::forever('dribbble.shots.pagination', $perPage);
                 Cache::forget('dribbble.shots');
             }
             $uri .= "?per_page={$perPage}";

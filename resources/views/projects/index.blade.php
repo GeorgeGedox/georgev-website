@@ -6,7 +6,7 @@
             <div class="col-sm-8">
                 <div class="heading pb-5 pt-2">
                     <h1>Projects</h1>
-                    @if(setting('general_dribbble_enable'))
+                    @if(App\Classes\Helpers::setting('general_dribbble_enable'))
                         <p>This is a direct mirror of my Dribbble profile.</p>
                     @else
                         <p>Here I list projects that I've worked on and favorites that never went further than the design phase.</p>
@@ -16,7 +16,7 @@
             </div>
             <div class="col-12">
                 <div class="gallery row">
-                    @if(setting('general_dribbble_enable'))
+                    @if(App\Classes\Helpers::setting('general_dribbble_enable'))
                         @forelse($projects as $index => $project)
                             <div class="img-wrap col-sm-6 col-md-4">
                                 <div class="image" data-id="{{ $index }}" style="background-image: url('{{ $project['images']['normal'] }}')">
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    @if(setting('general_dribbble_enable'))
+    @if(App\Classes\Helpers::setting('general_dribbble_enable'))
         @foreach($projects as $index => $project)
             <div class="work-viewer" data-id="{{ $index }}">
                 <div class="container-fluid">

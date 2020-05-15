@@ -53,6 +53,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.media.') ? 'active' : '' }}" href="{{ route('dashboard.media.index') }}">
+                        <i class="fas fa-cloud text-green"></i> {{ __('Media manager') }}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ Str::startsWith(Route::currentRouteName(), 'dashboard.settings.') ? 'active' : '' }}" href="#nav-settings" data-toggle="collapse" role="button"
                        aria-expanded="{{ Str::startsWith(Route::currentRouteName(), 'dashboard.settings.') ? 'true' : 'false' }}" aria-controls="navbar-settings">
                         <i class="fas fa-cogs text-pink"></i>
