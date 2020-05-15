@@ -31,7 +31,7 @@
                                         <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
                                             <input type="text" name="title" class="form-control form-control-alternative{{ $errors->has('title') ? ' is-invalid' : '' }}"
                                                    placeholder="{{ __('Title') }}"
-                                                   value="{{ old('title', setting('general_seo_title')) }}">
+                                                   value="{{ old('title', App\Classes\Helpers::setting('general_seo_title')) }}">
 
                                             @if ($errors->has('title'))
                                                 <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
                                         <label class="form-control-label">{{ __('Meta description') }}</label>
                                         <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
                                             <textarea name="description" rows="5" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}"
-                                                      placeholder="{{ __('Describe your website') }}">{{ old('description', setting('general_seo_description')) }}</textarea>
+                                                      placeholder="{{ __('Describe your website') }}">{{ old('description', App\Classes\Helpers::setting('general_seo_description')) }}</textarea>
 
 
                                             @if ($errors->has('title'))
@@ -111,7 +111,7 @@
                         <form id="socialForm" method="post" action="{{ route('dashboard.settings.general.social') }}" autocomplete="off">
                             @csrf
                             <div class="social-input-wrapper">
-                                @forelse(setting('general_social', []) as $index => $item)
+                                @forelse(App\Classes\Helpers::setting('general_social', []) as $index => $item)
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -197,12 +197,12 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
-                                            @if(setting('dribbble_access_token'))
+                                            @if(App\Classes\Helpers::setting('dribbble_access_token'))
                                                 <div class="col-12 text-center">
                                                     <label class="form-control-label">{{ __('Use Dribbble shots instead of projects') }}</label>
                                                     <div class="form-group">
                                                         <label class="custom-toggle">
-                                                            <input type="checkbox" value="true" name="dribbble_enable" @if(setting('general_dribbble_enable')) checked @endif>
+                                                            <input type="checkbox" value="true" name="dribbble_enable" @if(App\Classes\Helpers::setting('general_dribbble_enable')) checked @endif>
                                                             <span class="custom-toggle-slider rounded-circle"></span>
                                                         </label>
                                                     </div>
@@ -234,7 +234,7 @@
                             @endif
                         </form>
 
-                        @if(setting('dribbble_access_token'))
+                        @if(App\Classes\Helpers::setting('dribbble_access_token'))
                             <hr>
                             <div class="text-center">
                                 <form method="post" action="{{ route('dashboard.settings.general.dribbble-reset') }}" autocomplete="off">

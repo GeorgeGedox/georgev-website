@@ -1,7 +1,7 @@
-@extends('dashboard.layouts.app', ['title' => __('Blog posts management')])
+@extends('dashboard.layouts.app', ['title' => __('Media manager')])
 
 @section('content')
-    @include('dashboard.partials.page.header', ['title' => __('Blog posts management')])
+    @include('dashboard.partials.page.header', ['title' => __('Media manager')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -10,10 +10,10 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Posts') }}</h3>
+                                <h3 class="mb-0">{{ __('Media') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('dashboard.blog.create') }}" class="btn btn-sm btn-primary">{{ __('New post') }}</a>
+                                <a href="{{ route('dashboard.media.create') }}" class="btn btn-sm btn-primary">{{ __('Add media') }}</a>
                             </div>
                         </div>
                     </div>
@@ -26,34 +26,35 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">{{ __('Name') }}</th>
-                                <th scope="col">{{ __('URL Slug') }}</th>
-                                <th scope="col">{{ __('Created at') }}</th>
-                                <th scope="col">{{ __('Updated at') }}</th>
+                                <th scope="col">{{ __('Image') }}</th>
+                                <th scope="col">{{ __('Size') }}</th>
+                                <th scope="col">{{ __('Added at') }}</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($posts as $post)
+                            @forelse($uploads as $upload)
                                 <tr>
-                                    <td>{{ $post->id }}</td>
-                                    <td>{{ $post->title }}</td>
-                                    <td><a href="{{ route('blog.view', $post->slug) }}" target="_blank">{{ $post->slug }}</a></td>
-                                    <td>{{ $post->created_at->format('d/m/Y H:i') }}</td>
-                                    <td>{{ $post->created_at == $post->updated_at ? "Never" : $post->updated_at->diffForHumans() }}</td>
+                                    <th>
+                                        <div class="media align-items-center">
+                                            <div class="avatar rounded-circle mr-3">
+                                                <img style="height: 100%" alt="" src="{{ $upload['url']  }}">
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>{{ $upload['size'] }}</td>
+                                    <td>{{ \Carbon\Carbon::createFromTimestamp($upload['added'])->format('d/m/Y H:i') }}</td>
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <form action="{{ route('dashboard.blog.destroy', $post) }}" method="post">
+                                                <form action="{{ route('dashboard.media.delete') }}" method="post">
                                                     @csrf
+                                                    <input hidden type="text" name="path" value="{{ $upload['path'] }}">
                                                     @method('delete')
-
-                                                    <a class="dropdown-item" href="{{ route('dashboard.blog.edit', $post) }}">{{ __('Edit') }}</a>
-                                                    <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this post?") }}') ? this.parentElement.submit() : ''">
+                                                    <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this image?") }}') ? this.parentElement.submit() : ''">
                                                         {{ __('Delete') }}
                                                     </button>
                                                 </form>
@@ -69,11 +70,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer py-4">
-                        <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $posts->links() }}
-                        </nav>
-                    </div>
+
                 </div>
             </div>
         </div>
