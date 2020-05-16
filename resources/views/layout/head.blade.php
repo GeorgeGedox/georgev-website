@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+    {!! App\Classes\Helpers::setting('general_seo_tracking') !!}
+
     {{-- Fix blank screen flicker --}}
     <style>html{display: none;touch-action: manipulation}</style>
 </head>
