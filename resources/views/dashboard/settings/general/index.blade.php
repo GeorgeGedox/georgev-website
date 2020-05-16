@@ -40,16 +40,29 @@
                                             @endif
                                         </div>
                                         <label class="form-control-label">{{ __('Meta description') }}</label>
-                                        <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
+                                        <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
                                             <textarea name="description" rows="5" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}"
                                                       placeholder="{{ __('Describe your website') }}">{{ old('description', App\Classes\Helpers::setting('general_seo_description')) }}</textarea>
 
 
-                                            @if ($errors->has('title'))
+                                            @if ($errors->has('description'))
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                    <strong>{{ $errors->first('description') }}</strong>
                                                 </span>
                                             @endif
+                                        </div>
+                                        <label class="form-control-label">{{ __('Tracking codes') }}</label>
+                                        <div class="form-group{{ $errors->has('tracking') ? ' has-danger' : '' }}">
+                                            <textarea name="tracking" rows="5" class="form-control form-control-alternative{{ $errors->has('tracking') ? ' is-invalid' : '' }}"
+                                                      placeholder="{{ __('HTML <script> tags') }}">{{ old('tracking', App\Classes\Helpers::setting('general_seo_tracking')) }}</textarea>
+
+
+                                            @if ($errors->has('tracking'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('tracking') }}</strong>
+                                                </span>
+                                            @endif
+                                            <small class="form-text text-muted">All the html code will be added at the start of every page inside the <code>head</code> tag.</small>
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-success mt-2">{{ __('Save') }}</button>
@@ -184,7 +197,7 @@
                     </div>
                 </div>
 
-                <div class="card bg-secondary shadow">
+                <div class="card bg-secondary shadow mb-4">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <h3 class="col-12 mb-0">{{ __('Dribbble integration') }}</h3>
