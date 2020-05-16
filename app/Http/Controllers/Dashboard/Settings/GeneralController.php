@@ -38,11 +38,13 @@ class GeneralController extends Controller
     {
         $request->validate([
             'title' => 'nullable|string|max:60',
-            'description' => 'nullable|string|max:160'
+            'description' => 'nullable|string|max:160',
+            'tracking' => 'nullable|string',
         ]);
 
         Setting::add('general_seo_title', $request->input('title'));
         Setting::add('general_seo_description', $request->input('description'));
+        Setting::add('general_seo_tracking', $request->input('tracking'));
 
         return back()->with('status', 'SEO settings updated!');
     }
