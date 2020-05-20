@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class GeneralController extends Controller
@@ -20,7 +21,7 @@ class GeneralController extends Controller
     public function maintenance(Request $request)
     {
         $request->validate([
-            'message' => 'string|min:6|nullable'
+            'message' => 'string|min:3|nullable|present'
         ]);
 
         if (app()->isDownForMaintenance()) {
@@ -37,9 +38,9 @@ class GeneralController extends Controller
     public function seo(Request $request)
     {
         $request->validate([
-            'title' => 'nullable|string|max:60',
-            'description' => 'nullable|string|max:160',
-            'tracking' => 'nullable|string',
+            'title' => 'nullable|present|string|max:60',
+            'description' => 'nullable|present|string|max:160',
+            'tracking' => 'nullable|present|string',
         ]);
 
         Setting::add('general_seo_title', $request->input('title'));
@@ -49,12 +50,48 @@ class GeneralController extends Controller
         return back()->with('status', 'SEO settings updated!');
     }
 
+    public function analytics(Request $request)
+    {
+        $request->validate([
+            'view_id' => 'nullable|present|integer',
+        ]);
+
+        if (!Setting::get('general_analytics_key')){
+            $request->validate([
+                'analytics_key' => 'required|file|max:1000',
+            ]);
+
+            $path = $request->file('analytics_key')->storeAs('analytics', 'service-account-credentials.json', 'local');
+            if (!$path){
+                return back()->with('status', 'Failed to upload the analytics credentials file!');
+            }
+
+            Setting::set('general_analytics_key', true, 'bool');
+        }
+
+        Setting::add('general_analytics_view', $request->input('view_id'));
+
+        return back()->with('status', 'Analytics settings updated!');
+    }
+
+    public function analyticsKeyReset(Request $request)
+    {
+        $request->validate([
+            'reset_key' => 'required|accepted'
+        ]);
+
+        Setting::remove('general_analytics_key');
+        Storage::disk('local')->delete('analytics/service-account-credentials.json');
+
+        return back()->with('status', 'Analytics service key reset!');
+    }
+
     public function social(Request $request)
     {
         $request->validate([
-            'social.*.name' => 'required_with:social.*.icon,social.*.url|nullable|string|max:150',
-            'social.*.icon' => 'required_with:social.*.name,social.*.url|nullable|string|max:150',
-            'social.*.url' => 'required_with:social.*.icon,social*.name|nullable|url|max:250',
+            'social.*.name' => 'required_with:social.*.icon,social.*.url|nullable|present|string|max:150',
+            'social.*.icon' => 'required_with:social.*.name,social.*.url|nullable|present|string|max:150',
+            'social.*.url' => 'required_with:social.*.icon,social*.name|nullable|present|url|max:250',
         ]);
 
         $data = collect($request->input('social'))->reject(function ($item) {
@@ -84,7 +121,7 @@ class GeneralController extends Controller
     public function dribbbleReset(Request $request)
     {
         $request->validate([
-            'remove_integration' => 'accepted'
+            'remove_integration' => 'required|accepted'
         ]);
 
         Setting::remove('dribbble_access_token');
