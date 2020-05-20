@@ -151,7 +151,7 @@ class Setting extends Model
                 break;
 
             case 'array':
-                if (!is_array($value)){
+                if (!is_array($value)) {
                     throw new \Exception("Did not receive array value.");
                 }
                 return json_encode($value);
@@ -170,7 +170,7 @@ class Setting extends Model
      */
     public static function getAllSettings()
     {
-        return Cache::rememberForever('settings.all', function (){
+        return Cache::rememberForever('settings.all', function () {
             return self::all();
         });
     }
@@ -179,7 +179,8 @@ class Setting extends Model
      * Flush cache
      *
      */
-    public static function flushCache(){
+    public static function flushCache()
+    {
         Cache::forget('settings.all');
     }
 
@@ -188,17 +189,17 @@ class Setting extends Model
         parent::boot();
 
         // Flush cache on update
-        static::updated(function (){
+        static::updated(function () {
             self::flushCache();
         });
 
         // Flush cache on create
-        static::created(function (){
+        static::created(function () {
             self::flushCache();
         });
 
         // Flush cache on delete
-        static::deleted(function (){
+        static::deleted(function () {
             self::flushCache();
         });
     }

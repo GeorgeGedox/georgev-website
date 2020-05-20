@@ -230,7 +230,7 @@
                                                     <p>This section allows you to link your dribbble.com account with this application and display your shots in your portfolio.</p>
                                                 </div>
                                                 <div class="col-12 text-center">
-                                                    <a href="{{ \App\Classes\DribbbleAPI::generateAuthorizationURL(config('services.dribbble.client_id'), route('dashboard.settings.general.dribbble-auth')) }}"
+                                                    <a href="{{ App\Classes\DribbbleAPI::generateAuthorizationURL(config('services.dribbble.client_id'), route('dashboard.settings.general.dribbble-auth')) }}"
                                                        class="btn btn-lg btn-danger"><i class="fab fa-dribbble"></i> Authorize</a>
                                                 </div>
                                             @endif
@@ -256,6 +256,65 @@
 
                                     <input type="text" name="remove_integration" value="true" hidden>
                                     <button type="submit" class="btn btn-danger mt-2">{{ __('Reset Integration') }}</button>
+                                </form>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <h3 class="col-12 mb-0">{{ __('Google Analytics Integration') }}</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{ route('dashboard.settings.general.analytics') }}" enctype="multipart/form-data" autocomplete="off">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="form-control-label">{{ __('View ID') }}</label>
+                                    <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
+                                        <input type="text" name="view_id" class="form-control form-control-alternative{{ $errors->has('view_id') ? ' is-invalid' : '' }}"
+                                               placeholder="{{ __('Analytics View ID') }}"
+                                               value="{{ old('view_id', App\Classes\Helpers::setting('general_analytics_view')) }}">
+
+                                        @if ($errors->has('view_id'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('view_id') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    @if(!App\Classes\Helpers::setting('general_analytics_key'))
+                                        <label class="form-control-label">{{ __('Service Account Key File (JSON)') }}</label>
+                                        <div class="form-group custom-file">
+                                            <input type="file" class="custom-file-input{{ $errors->has('analytics_key') ? ' is-invalid' : '' }}" id="analytics-key-file" name="analytics_key" lang="en">
+                                            <label class="custom-file-label" for="analytics-key-file">Select file</label>
+                                            @if ($errors->has('analytics_key'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('analytics_key') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    @endif
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-success mt-2">{{ __('Save') }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        @if(App\Classes\Helpers::setting('general_analytics_key'))
+                            <hr>
+                            <div class="text-center">
+                                <form method="post" action="{{ route('dashboard.settings.general.analytics.key-reset') }}" autocomplete="off">
+                                    @csrf
+                                    @method('delete')
+
+                                    <div class="text-success mb-2">{{ __('Service Account Key File Loaded!') }}</div>
+
+                                    <input type="text" name="reset_key" value="true" hidden>
+                                    <button type="submit" class="btn btn-danger mt-2">{{ __('Reset Service Account Key') }}</button>
                                 </form>
                             </div>
                         @endif
