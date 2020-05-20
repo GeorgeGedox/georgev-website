@@ -46,6 +46,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::post('/general/seo', 'Dashboard\Settings\GeneralController@seo')->name('general.seo');
             Route::post('/general/social', 'Dashboard\Settings\GeneralController@social')->name('general.social');
 
+            Route::post('/general/analytics', 'Dashboard\Settings\GeneralController@analytics')->name('general.analytics');
+            Route::delete('/general/analytics', 'Dashboard\Settings\GeneralController@analyticsKeyReset')->name('general.analytics.key-reset');
+
             Route::post('/general/dribbble', 'Dashboard\Settings\GeneralController@dribbble')->name('general.dribbble');
             Route::get('/general/dribbble', 'Dashboard\Settings\GeneralController@dribbbleAuth')->name('general.dribbble-auth');
             Route::put('/general/dribbble', 'Dashboard\Settings\GeneralController@dribbbleReset')->name('general.dribbble-reset');
