@@ -67,6 +67,15 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="text-center">
+                                        <div class="form-check">
+                                            <input type="checkbox" name="draft" value="1" @if($post->draft) checked @endif class="form-check-input" id="draftCheck">
+                                            <label class="form-check-label" for="draftCheck">Save as draft</label>
+                                            @if ($errors->has('draft'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('draft') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
                                         <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                     </div>
                                 </div>

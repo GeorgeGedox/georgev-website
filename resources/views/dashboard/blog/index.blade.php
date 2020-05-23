@@ -29,6 +29,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">{{ __('Name') }}</th>
                                 <th scope="col">{{ __('URL Slug') }}</th>
+                                <th scope="col">{{ __('Draft') }}</th>
                                 <th scope="col">{{ __('Created at') }}</th>
                                 <th scope="col">{{ __('Updated at') }}</th>
                                 <th scope="col"></th>
@@ -40,6 +41,7 @@
                                     <td>{{ $post->id }}</td>
                                     <td>{{ $post->title }}</td>
                                     <td><a href="{{ route('blog.view', $post->slug) }}" target="_blank">{{ $post->slug }}</a></td>
+                                    <td>{{ $post->draft ? 'Yes' : 'No' }}</td>
                                     <td>{{ $post->created_at->format('d/m/Y H:i') }}</td>
                                     <td>{{ $post->created_at == $post->updated_at ? "Never" : $post->updated_at->diffForHumans() }}</td>
                                     <td class="text-right">

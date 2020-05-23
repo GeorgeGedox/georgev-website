@@ -15,7 +15,7 @@
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Edit post') }}</h3>
+                                <h3 class="mb-0">{{ __('New post') }}</h3>
                             </div>
                             <div class="col-4 text-right">
                                 <a href="{{ route('dashboard.blog.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
@@ -65,6 +65,15 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="text-center">
+                                        <div class="form-check">
+                                            <input type="checkbox" name="draft" value="1" class="form-check-input" id="draftCheck">
+                                            <label class="form-check-label" for="draftCheck">Save as draft</label>
+                                            @if ($errors->has('draft'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('draft') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
                                         <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                     </div>
                                 </div>

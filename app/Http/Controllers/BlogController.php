@@ -9,7 +9,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderByDesc('id')->get();
+        $posts = Post::orderByDesc('id')->where('draft', 0)->get();
 
         return view('blog.index', compact('posts'));
     }
