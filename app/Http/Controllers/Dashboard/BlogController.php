@@ -82,6 +82,7 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|string|max:250',
             'body' => 'required|string',
+            'draft' => 'boolean'
         ]);
 
         $post->update($request->all());

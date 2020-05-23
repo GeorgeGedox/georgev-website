@@ -9,7 +9,10 @@ use Parsedown;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['title', 'body', 'draft'];
+    protected $casts = [
+        'draft' => 'accepted'
+    ];
 
     public function getHtmlBodyAttribute()
     {
