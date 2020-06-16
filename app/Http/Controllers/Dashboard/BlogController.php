@@ -40,10 +40,17 @@ class BlogController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:250',
-            'body' => 'required|string',
+            'body' => 'required|string'
         ]);
 
         $post = Post::create($request->all());
+
+        // Draft handle
+        if ($request->has('draft')){
+            $post->update(['draft' => 1]);
+        }else{
+            $post->update(['draft' => 0]);
+        }
 
         return redirect()->route('dashboard.blog.edit', $post)->with('status', 'Post changes saved!');
     }
@@ -81,11 +88,17 @@ class BlogController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:250',
-            'body' => 'required|string',
-            'draft' => 'boolean'
+            'body' => 'required|string'
         ]);
 
         $post->update($request->all());
+
+        // Draft handle
+        if ($request->has('draft')){
+            $post->update(['draft' => 1]);
+        }else{
+            $post->update(['draft' => 0]);
+        }
 
         return redirect()->route('dashboard.blog.edit', $post)->with('status', 'Post changes saved!');
     }
@@ -93,11 +106,16 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param \App\Post $post
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Post $post)
     {
-        //
+        if (!$post->delete()){
+            return redirect()->route('dashboard.blog.index', $post)->with('error', 'Unable to delete post.');
+        }
+
+        return redirect()->route('dashboard.blog.index', $post)->with('status', 'Post deleted!');
     }
 }
