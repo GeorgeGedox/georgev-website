@@ -31,6 +31,10 @@ class Post extends Model
      */
     public function setTitleAttribute($value)
     {
+        if ($this->title === $value){
+            return;
+        }
+
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = Str::slug($value . '-' . random_int(100, 100000));
     }

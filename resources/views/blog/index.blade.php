@@ -1,7 +1,7 @@
 @extends('layout.app', ['header_class' => 'sticky'])
 
 @section('content')
-    <div class="container">
+    <div class="container blog">
         <div class="row">
             <div class="col-sm-8">
                 <div class="heading pb-5 pt-2">
