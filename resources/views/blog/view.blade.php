@@ -1,10 +1,10 @@
 @extends('layout.app', ['header_class' => 'sticky'])
 
 @section('content')
-    <div class="container">
+    <div class="container blog">
         <div class="row">
             <div class="col-sm-8 offset-sm-2">
-                @if($post->draft && auth()->check())
+                @if(($post->draft && auth()->check()) || $post->draft == 0)
                     <div class="heading pb-5 pt-2">
                         <h1>{{ $post->title }}</h1>
                         <span style="font-size: 13px">{{ $post->date }}</span>
