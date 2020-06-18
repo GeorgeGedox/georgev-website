@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="{{ App\Classes\Helpers::setting('general_seo_description', '') }}">
+    @stack('open-graph')
 
     <title>{{ App\Classes\Helpers::setting('general_seo_title', 'Website design & development') }} - {{ config('app.name') }}</title>
 
