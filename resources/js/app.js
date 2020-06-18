@@ -1,6 +1,36 @@
 require('./bootstrap')
 require('jquery-lazy/jquery.lazy.min')
 
+import HlJs from 'highlight.js/lib/core'
+import javascript from 'highlight.js/lib/languages/javascript'
+import python from 'highlight.js/lib/languages/python'
+import php from 'highlight.js/lib/languages/php'
+import bash from 'highlight.js/lib/languages/bash'
+import css from 'highlight.js/lib/languages/css'
+import json from 'highlight.js/lib/languages/json'
+import markdown from 'highlight.js/lib/languages/markdown'
+import http from 'highlight.js/lib/languages/http'
+import sql from 'highlight.js/lib/languages/sql'
+import xml from 'highlight.js/lib/languages/xml'
+import dockerfile from 'highlight.js/lib/languages/dockerfile'
+import apache from 'highlight.js/lib/languages/apache'
+import nginx from 'highlight.js/lib/languages/nginx'
+
+HlJs.registerLanguage('javascript', javascript)
+HlJs.registerLanguage('python', python)
+HlJs.registerLanguage('php', php)
+HlJs.registerLanguage('bash', bash)
+HlJs.registerLanguage('css', css)
+HlJs.registerLanguage('json', json)
+HlJs.registerLanguage('markdown', markdown)
+HlJs.registerLanguage('http', http)
+HlJs.registerLanguage('sql', sql)
+HlJs.registerLanguage('xml', xml)
+HlJs.registerLanguage('apache', apache)
+HlJs.registerLanguage('dockerfile', dockerfile)
+HlJs.registerLanguage('nginx', nginx)
+HlJs.initHighlightingOnLoad()
+
 function mobileTrigger() {
     const $mobileMenu = $('#navigation-mobile')
     const $mobileBtnClose = $('#navigation-mobile .handler button')

@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="title">
                                 <h2><a href="{{ route('blog.view', $post->slug) }}">{{ $post->title }}</a></h2>
-                                <span>{{ $post->date }}</span>
+                                <span>Published at {{ $post->date }} &bull; <a href="{{ route('blog.view', $post->slug) }}#disqus_thread">Post a comment</a></span>
                             </div>
                             <div class="body">
                                 <p>{{ $post->summary }}</p>
@@ -31,3 +31,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script id="dsq-count-scr" src="//georgev-design.disqus.com/count.js" async></script>
+@endpush
