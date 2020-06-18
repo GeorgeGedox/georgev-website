@@ -1,5 +1,12 @@
 @extends('layout.app', ['header_class' => 'sticky'])
 
+@push('open-graph')
+    <meta property="og:title" content="{{ $post->title }}">
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta property="og:url" content="{{ route('blog.view', $post->slug) }}">
+    <meta property="og:type" content="article">
+@endpush
+
 @section('content')
     <div class="container blog">
         <div class="row">
